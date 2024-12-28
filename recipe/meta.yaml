@@ -6,21 +6,21 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/osm-flex-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/osm-flex-{{ version }}.tar.gz
   sha256: 5a45e28bc8280eb4dcaf7d776efa3792bc46583ab8ade2d70609dad3894111fd
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.9
+    - python {{ python_min }}
     - setuptools >=64.0.0
     - pip
   run:
-    - python >=3.9
+    - python >={{ python_min }}
     - cartopy
     - geopandas
     - gdal
@@ -43,6 +43,7 @@ test:
   requires:
     - pip
     - pytest
+    - python {{ python_min }}
 
 about:
   summary: Python package for flexible data extraction from OpenStreetMap
